@@ -6,8 +6,8 @@ import 'package:tug/features/widgets/app_outlined_image_button.dart';
 import 'package:tug/features/widgets/app_primary_elevated_button.dart';
 import 'package:tug/features/widgets/app_textfiled.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class AuthScreen extends StatelessWidget {
+  const AuthScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -123,6 +123,7 @@ class LoginScreen extends StatelessWidget {
                                 labelText: 'Email',
                                 text: state.email,
                                 onChanged: (value) => context.read<AuthCubit>().setEmail(value),
+                                errorText: state.emailError,
                                 suffixIcon: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   mainAxisAlignment: MainAxisAlignment.end,
@@ -161,6 +162,7 @@ class LoginScreen extends StatelessWidget {
                                 labelText: 'Password',
                                 obscureText: state.isShowPassword == false,
                                 text: state.password,
+                                errorText: state.passwordError,
                                 onChanged: (value) => context.read<AuthCubit>().setPassword(value),
                                 suffixIcon: Row(
                                   mainAxisSize: MainAxisSize.min,
