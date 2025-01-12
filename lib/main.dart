@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:toastification/toastification.dart';
 import 'package:tug/core/extensions/path_route_extensions.dart';
 import 'package:tug/core/network/http_client.dart';
@@ -12,9 +11,6 @@ import 'package:tug/servises/storage/auth_manager.dart';
 import 'configs/theme_data/light_theme.dart';
 import 'core/router/app_route.dart';
 import 'core/router/path_route.dart';
-import 'features/auth/auth_screen.dart';
-
-int a = 0;
 
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -40,7 +36,7 @@ Future<void> main() async {
     accessTokenProvider: () async => AuthManager.authObject?.idToken,
     onUnauthorizedCallback: () {
       AuthManager.logout();
-      print("🚀 🚀 🚀 🚀  🚀 🚀 🚀  🚀 🚀 🚀 🚀 🚀 🚀 Access token expired. Logging out the user...");
+      print('🚀 🚀 🚀 Access token expired. Logging out the user . . . 🚀 🚀 🚀');
     },
   );
 

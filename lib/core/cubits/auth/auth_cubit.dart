@@ -13,11 +13,11 @@ import 'auth_state.dart';
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit()
       : super(const AuthState(
-    loginStatus: Status.initial,
-    oAuthStatus: Status.initial,
-    isAcceptedTerms: false,
-    isShowPassword: false,
-  ));
+          loginStatus: Status.initial,
+          oAuthStatus: Status.initial,
+          isAcceptedTerms: false,
+          isShowPassword: false,
+        ));
 
   void setEmail(String email) => emit(state.copyWith(email: email, emailError: null));
 
@@ -26,6 +26,10 @@ class AuthCubit extends Cubit<AuthState> {
   void setPassword(String password) => emit(state.copyWith(password: password, passwordError: null));
 
   void clearPassword() => emit(state.copyWith(password: '', passwordError: null));
+
+  void setAcceptTerm(bool? value) => emit(state.copyWith(isAcceptedTerms: value));
+
+  void switchPasswordVisibility() => emit(state.copyWith(isShowPassword: !(state.isShowPassword ?? false)));
 
   void loginByEmail() async {
     if (state.email.isValidEmail() == false) {
@@ -58,11 +62,11 @@ class AuthCubit extends Cubit<AuthState> {
   void oAuth() async {
     emit(state.copyWith(oAuthStatus: Status.inProgress));
 
-    await _signInWithGoogle();
+    await signInWithGoogle();
     emit(state.copyWith(oAuthStatus: Status.initial));
   }
 
-  Future<void> _signInWithGoogle() async {
+  Future<void> signInWithGoogle() async {
     try {
       await Firebase.initializeApp(
         options: const FirebaseOptions(
@@ -75,16 +79,15 @@ class AuthCubit extends Cubit<AuthState> {
         ),
       );
 
-      final FirebaseAuth _auth = FirebaseAuth.instance;
+      final FirebaseAuth auth = FirebaseAuth.instance;
 
-      final GoogleSignIn _googleSignIn = GoogleSignIn();
+      final GoogleSignIn googleSignIn = GoogleSignIn();
 
-      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
       if (googleUser == null) {
         return;
       }
 
-      // Obtain the Google authentication details
       final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
 
       final AuthCredential credential = GoogleAuthProvider.credential(
@@ -92,9 +95,8 @@ class AuthCubit extends Cubit<AuthState> {
         idToken: googleAuth.idToken,
       );
 
-      final UserCredential userCredential = await _auth.signInWithCredential(credential);
+      final UserCredential userCredential = await auth.signInWithCredential(credential);
       // final UserCredential userCredential = await _auth
-
       // return userCredential.user;
 
       print(userCredential.user!.email);
@@ -103,8 +105,4 @@ class AuthCubit extends Cubit<AuthState> {
       return;
     }
   }
-
-  void setAcceptTerm(bool? value) => emit(state.copyWith(isAcceptedTerms: value));
-
-  void switchPasswordVisibility() => emit(state.copyWith(isShowPassword: !(state.isShowPassword ?? false)));
 }

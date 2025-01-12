@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:tug/core/utils/print_wrapped.dart';
 import 'dart:async';
 
 import 'package:tug/core/utils/result.dart';
@@ -14,9 +15,7 @@ class HttpClient {
 
   HttpClient._internal();
 
-  static const String _baseUrl = "https://identitytoolkit.googleapis.com/v1";
-  static const String _firebaseApiKey = "AIzaSyC3DVfBIYKs-EbQpA7k7E7UdLK5ILQgZ9k";
-
+  static const String _baseUrl = "https://sg-api.mylorry.ai/api";
   Future<String?> Function()? _accessTokenProvider;
   void Function()? _onUnauthorizedCallback;
 
@@ -33,14 +32,15 @@ class HttpClient {
     required String method,
     Map<String, dynamic>? body,
     required T Function(Map<String, dynamic>) fromJson,
+    bool useBaseUrl = true,
   }) async {
     try {
-      final uri = Uri.parse("$_baseUrl$endpoint?key=$_firebaseApiKey");
+      final uri = useBaseUrl ? Uri.parse("$_baseUrl$endpoint") : Uri.parse(endpoint);
+
       final headers = <String, String>{
         "Content-Type": "application/json",
       };
 
-      // Retrieve access token dynamically
       if (_accessTokenProvider != null) {
         final token = await _accessTokenProvider!();
         if (token != null) {
@@ -52,7 +52,6 @@ class HttpClient {
 
       http.Response response;
 
-      // Handle different HTTP methods
       if (method == "POST") {
         response = await http.post(uri, headers: headers, body: jsonEncode(body)).timeout(const Duration(seconds: 10));
       } else if (method == "GET") {
@@ -61,7 +60,8 @@ class HttpClient {
         throw Exception("Unsupported HTTP method: $method");
       }
 
-      // Handle HTTP status codes
+      printWrapped('🚒 🚑 🚒 🚑 🚒 🚑 🚒 🚑 ==>  ' + response.body.toString());
+
       return _handleResponse(response, fromJson);
     } on SocketException {
       return Result.failure("No Internet connection. Please check your network.");

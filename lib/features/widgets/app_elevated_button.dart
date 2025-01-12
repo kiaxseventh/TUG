@@ -29,7 +29,7 @@ class AppElevatedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
-      height: 54,
+      height: 41,
       child: ElevatedButton(
         onPressed: (isActive == true && isLoading == false) ? onPressed : null,
         style: ElevatedButton.styleFrom(
