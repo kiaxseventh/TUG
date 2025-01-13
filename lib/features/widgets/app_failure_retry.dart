@@ -21,14 +21,21 @@ class AppFailureRetry extends StatelessWidget {
             margin: const EdgeInsets.symmetric(horizontal: 32),
             constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.5),
             child: SingleChildScrollView(
-              child: Text(failureMessage ?? 'error'),
+              child: Text(
+                failureMessage ?? 'error',
+                style: const TextStyle(
+                  color: Color(0xFF757575),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
             ),
           ),
           const SizedBox(
             height: 24,
           ),
           AppTextButton(
-            text: 'تلاش مجدد',
+            text: 'retry',
             onPressed: onPressed,
           ),
         ],

@@ -15,7 +15,7 @@ class DashboardCubit extends Cubit<DashboardState> {
   void getData() async {
     emit(state.copyWith(status: Status.inProgress));
 
-    Result<DashboardModel> result = await ApiService.getDashboard(orgId);
+    Result<DashboardModel> result = await ApiService().getDashboard(orgId);
 
     if (result.isSuccess) {
       emit(state.copyWith(dashboardModel: result.data, status: Status.loaded));

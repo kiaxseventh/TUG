@@ -4,6 +4,7 @@ import 'package:tug/core/cubits/user_me/user_me_cubit.dart';
 import 'package:tug/core/cubits/user_me/user_me_state.dart';
 import 'package:tug/features/widgets/app_failure_retry.dart';
 import 'package:tug/features/widgets/app_loading.dart';
+import 'package:tug/servises/api_service.dart';
 
 import 'views/dashboard_loaded.dart';
 
@@ -21,7 +22,7 @@ class HomeScreen extends StatelessWidget {
           ),
           Expanded(
             child: BlocProvider(
-              create: (_) => UserMeCubit()..getData(),
+              create: (_) => UserMeCubit(ApiService())..getData(),
               child: BlocBuilder<UserMeCubit, UserMeState>(
                 builder: (context, state) {
                   if (state.status == Status.inProgress) return const AppLoading();

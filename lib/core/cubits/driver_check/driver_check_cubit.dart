@@ -18,7 +18,7 @@ class DriverCheckCubit extends Cubit<DriverCheckState> {
   void getData() async {
     emit(state.copyWith(status: Status.inProgress));
 
-    Result<DriverChecklistModel> result = await ApiService.driverChecklist(orgId);
+    Result<DriverChecklistModel> result = await ApiService().driverChecklist(orgId);
 
     if (result.isSuccess) {
       emit(state.copyWith(driverChecklistModel: result.data, status: Status.loaded));

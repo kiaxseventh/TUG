@@ -46,7 +46,7 @@ class AuthCubit extends Cubit<AuthState> {
 
     emit(state.copyWith(loginStatus: Status.inProgress));
 
-    Result<AuthModel> result = await ApiService.login(state.email!, state.password!);
+    Result<AuthModel> result = await ApiService().login(state.email!, state.password!);
 
     if (result.isSuccess) {
       print("Login successful!");
