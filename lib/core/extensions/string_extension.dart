@@ -43,4 +43,11 @@ extension NullableStringExtensions on String? {
   bool isValidPassword() {
     return (this ?? '').length >= 6;
   }
+
+  bool isUrl() {
+    if (isNullOrEmpty()) return false;
+
+    final uri = Uri.tryParse(this!);
+    return uri != null && uri.hasScheme && uri.hasAuthority;
+  }
 }

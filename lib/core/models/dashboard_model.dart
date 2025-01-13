@@ -129,9 +129,9 @@ class Usage {
 }
 
 class Current {
-  final dynamic volume;
-  final dynamic amount;
-  final dynamic trxnCount;
+  final double? volume;
+  final double? amount;
+  final double? trxnCount;
 
   Current({
     this.volume,

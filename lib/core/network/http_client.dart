@@ -6,6 +6,10 @@ import 'dart:async';
 
 import 'package:tug/core/utils/result.dart';
 
+enum Method { get, post }
+
+const timeout = 10;
+
 class HttpClient {
   static final HttpClient _instance = HttpClient._internal();
 
@@ -29,7 +33,7 @@ class HttpClient {
 
   Future<Result<T>> sendRequest<T>({
     required String endpoint,
-    required String method,
+    required Method method,
     Map<String, dynamic>? body,
     required T Function(Map<String, dynamic>) fromJson,
     bool useBaseUrl = true,
@@ -52,10 +56,10 @@ class HttpClient {
 
       http.Response response;
 
-      if (method == "POST") {
-        response = await http.post(uri, headers: headers, body: jsonEncode(body)).timeout(const Duration(seconds: 10));
-      } else if (method == "GET") {
-        response = await http.get(uri, headers: headers).timeout(const Duration(seconds: 10));
+      if (method == Method.get) {
+        response = await http.get(uri, headers: headers).timeout(const Duration(seconds: timeout));
+      } else if (method == Method.post) {
+        response = await http.post(uri, headers: headers, body: jsonEncode(body)).timeout(const Duration(seconds: timeout));
       } else {
         throw Exception("Unsupported HTTP method: $method");
       }

@@ -7,4 +7,6 @@ class Result<T> {
   Result.failure(this.error) : data = null;
 
   bool get isSuccess => data != null;
+
+  bool get isError => error != null;
 }

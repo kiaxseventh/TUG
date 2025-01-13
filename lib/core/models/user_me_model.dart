@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-class UserProfileModel {
+class UserMeModel {
   final int? id;
   final int? tenantId;
   final String? externalUserId;
@@ -16,7 +16,7 @@ class UserProfileModel {
   final dynamic identificationType;
   final dynamic identificationNo;
 
-  UserProfileModel({
+  UserMeModel({
     this.id,
     this.tenantId,
     this.externalUserId,
@@ -33,11 +33,11 @@ class UserProfileModel {
     this.identificationNo,
   });
 
-  factory UserProfileModel.fromJson(String str) => UserProfileModel.fromMap(json.decode(str));
+  factory UserMeModel.fromJson(String str) => UserMeModel.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory UserProfileModel.fromMap(Map<String, dynamic> json) => UserProfileModel(
+  factory UserMeModel.fromMap(Map<String, dynamic> json) => UserMeModel(
         id: json["id"],
         tenantId: json["tenantId"],
         externalUserId: json["externalUserId"],

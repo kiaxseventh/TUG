@@ -31,6 +31,8 @@ class AuthCubit extends Cubit<AuthState> {
 
   void switchPasswordVisibility() => emit(state.copyWith(isShowPassword: !(state.isShowPassword ?? false)));
 
+  // const email = "hossein.arabi@gmail.com";
+  // const password = "123456789";
   void loginByEmail() async {
     if (state.email.isValidEmail() == false) {
       emit(state.copyWith(emailError: 'enter valid email address'));
@@ -43,9 +45,6 @@ class AuthCubit extends Cubit<AuthState> {
     }
 
     emit(state.copyWith(loginStatus: Status.inProgress));
-
-    // const email = "hossein.arabi@gmail.com";
-    // const password = "123456789";
 
     Result<AuthModel> result = await ApiService.login(state.email!, state.password!);
 
