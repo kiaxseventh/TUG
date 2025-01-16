@@ -20,63 +20,68 @@ class AuthScreen extends StatelessWidget {
               children: [
                 Container(
                   alignment: Alignment.topCenter,
-                  child: AspectRatio(
-                    aspectRatio: 1.145,
-                    child: Stack(
-                      children: [
-                        Opacity(
-                          opacity: 1,
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.centerLeft,
-                                end: Alignment.centerRight,
-                                colors: [
-                                  Color(0xFF003F7F),
-                                  Color(0xFF3CFB66),
-                                ],
+                  child: SizedBox(
+                    height: (MediaQuery.sizeOf(context).height - (598 - 38)),
+                    child: LayoutBuilder(
+                      builder: (_, BoxConstraints boxConstraints) {
+                        return Stack(
+                          children: [
+                            Opacity(
+                              opacity: 1,
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                  gradient: LinearGradient(
+                                    begin: Alignment.centerLeft,
+                                    end: Alignment.centerRight,
+                                    colors: [
+                                      Color(0xFF003F7F),
+                                      Color(0xFF3CFB66),
+                                    ],
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                        Opacity(
-                          opacity: 1,
-                          child: SizedBox(
-                            width: double.infinity,
-                            child: Image.asset(
-                              'assets/bg-1.png',
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        Opacity(
-                          opacity: 0.6,
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.centerLeft,
-                                end: Alignment.centerRight,
-                                colors: [
-                                  Color(0xFF003F7F),
-                                  Color(0xFF3CFB66),
-                                ],
+                            Opacity(
+                              opacity: 1,
+                              child: SizedBox(
+                                width: double.infinity,
+                                child: Image.asset(
+                                  'assets/bg-1.png',
+                                  fit: BoxFit.cover,
+                                  height: boxConstraints.minHeight,
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.center,
-                          child: Container(
-                            width: MediaQuery.sizeOf(context).width * 0.36,
-                            height: MediaQuery.sizeOf(context).width * 0.36,
-                            margin: const EdgeInsets.only(bottom: 60),
-                            child: Image.asset(
-                              'assets/ic-ml-logo.png',
-                              fit: BoxFit.scaleDown,
+                            Opacity(
+                              opacity: 0.6,
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                  gradient: LinearGradient(
+                                    begin: Alignment.centerLeft,
+                                    end: Alignment.centerRight,
+                                    colors: [
+                                      Color(0xFF003F7F),
+                                      Color(0xFF3CFB66),
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                      ],
+                            Align(
+                              alignment: Alignment.center,
+                              child: Container(
+                                width: MediaQuery.sizeOf(context).width * 0.36,
+                                height: MediaQuery.sizeOf(context).width * 0.36,
+                                margin: const EdgeInsets.only(bottom: 60),
+                                child: Image.asset(
+                                  'assets/ic-ml-logo.png',
+                                  fit: BoxFit.fitHeight,
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
                     ),
                   ),
                 ),
@@ -89,10 +94,11 @@ class AuthScreen extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Container(
+                      height: 598,
                       padding: const EdgeInsets.only(
                         right: 48,
                         left: 48,
-                        top: 33,
+                        top: 30,
                         bottom: 32,
                       ),
                       decoration: const BoxDecoration(
@@ -115,7 +121,7 @@ class AuthScreen extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(
-                            height: 52,
+                            height: 48,
                           ),
                           BlocBuilder<AuthCubit, AuthState>(
                             builder: (context, state) {

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:go_router/go_router.dart';
+import 'package:responsive_framework/responsive_wrapper.dart';
+import 'package:responsive_framework/utils/scroll_behavior.dart';
 import 'package:toastification/toastification.dart';
 import 'package:tug/core/di/de.dart';
 import 'package:tug/core/extensions/path_route_extensions.dart';
@@ -64,7 +66,22 @@ class MyApp extends StatelessWidget {
         routerConfig: goRouter,
         builder: (context, child) {
           setAppContext(context);
-          return child!;
+          // return child!;
+
+          return ResponsiveWrapper.builder(
+            ClampingScrollWrapper.builder(context, child!),
+            minWidth: 480,
+            maxWidth: 600,
+            defaultScale: true,
+            // useShortestSide: true,
+            breakpoints: [
+              const ResponsiveBreakpoint.resize(480, name: '400'),
+              const ResponsiveBreakpoint.resize(481, name: '401'),
+            ],
+            // background: Container(
+            //   color: AppColors().pagesBackgroundColor,
+            // ),
+          );
         },
 
         // locale: Locale('en'),
