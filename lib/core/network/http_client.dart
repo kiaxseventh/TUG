@@ -64,7 +64,7 @@ class HttpClient {
         throw Exception("Unsupported HTTP method: $method");
       }
 
-      printWrapped('🚒 🚑 🚒 🚑 🚒 🚑 🚒 🚑 ==>  ' + response.body.toString());
+      printWrapped(' ${uri.path} \n 🚒 🚑 🚒 🚑 🚒 🚑 🚒 🚑 ==>  ${response.body}');
 
       return _handleResponse(response, fromJson);
     } on SocketException {

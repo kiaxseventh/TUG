@@ -22,7 +22,7 @@ class HomeScreen extends StatelessWidget {
           ),
           Expanded(
             child: BlocProvider(
-              create: (_) => UserMeCubit(ApiService())..getData(),
+              create: (_) => UserMeCubit()..getData(),
               child: BlocBuilder<UserMeCubit, UserMeState>(
                 builder: (context, state) {
                   if (state.status == Status.inProgress) return const AppLoading();

@@ -29,14 +29,6 @@ final GoRouter goRouter = GoRouter(
 
     if (AuthManager.authObject != null && state.uri.toString() == PathRoute.auth.path) return PathRoute.home.path;
 
-
-    print('🛻 🛻 🛻 🛻 🛻 🛻 🛻 🛻 🛻 🛻 🛻 ');
-    print('🛻 🛻 🛻 🛻 🛻 🛻 🛻 🛻 🛻 🛻 🛻 ' + (AuthManager.authObject != null && state.uri.toString() == PathRoute.auth.path).toString());
-
-
-    print('🛻 🛻 🛻 🛻 🛻 🛻 🛻 🛻 🛻 🛻 🛻 ' + (AuthManager.authObject != null).toString());
-    print('🛻 🛻 🛻 🛻 🛻 🛻 🛻 🛻 🛻 🛻 🛻 ' + (state.uri.toString() == PathRoute.auth.path).toString());
-
     return null;
   },
 );

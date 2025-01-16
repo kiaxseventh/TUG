@@ -39,6 +39,9 @@ abstract class $UserMeStateCopyWith<$Res> {
       UserMeModel? userMeModel,
       String? failureMessage,
       Account? selectedAccount});
+
+  $UserMeModelCopyWith<$Res>? get userMeModel;
+  $AccountCopyWith<$Res>? get selectedAccount;
 }
 
 /// @nodoc
@@ -80,6 +83,34 @@ class _$UserMeStateCopyWithImpl<$Res, $Val extends UserMeState>
               as Account?,
     ) as $Val);
   }
+
+  /// Create a copy of UserMeState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $UserMeModelCopyWith<$Res>? get userMeModel {
+    if (_value.userMeModel == null) {
+      return null;
+    }
+
+    return $UserMeModelCopyWith<$Res>(_value.userMeModel!, (value) {
+      return _then(_value.copyWith(userMeModel: value) as $Val);
+    });
+  }
+
+  /// Create a copy of UserMeState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $AccountCopyWith<$Res>? get selectedAccount {
+    if (_value.selectedAccount == null) {
+      return null;
+    }
+
+    return $AccountCopyWith<$Res>(_value.selectedAccount!, (value) {
+      return _then(_value.copyWith(selectedAccount: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -95,6 +126,11 @@ abstract class _$$UserMeStateImplCopyWith<$Res>
       UserMeModel? userMeModel,
       String? failureMessage,
       Account? selectedAccount});
+
+  @override
+  $UserMeModelCopyWith<$Res>? get userMeModel;
+  @override
+  $AccountCopyWith<$Res>? get selectedAccount;
 }
 
 /// @nodoc

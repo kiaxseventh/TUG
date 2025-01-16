@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:tug/core/cubits/driver_check/driver_check_state.dart';
 import 'package:tug/core/models/driver_check_list_model.dart';
-import 'package:tug/core/models/fuel_transaction_list_model.dart';
 import 'package:tug/core/utils/result.dart';
 import 'package:tug/servises/api_service.dart';
 
@@ -18,7 +17,7 @@ class DriverCheckCubit extends Cubit<DriverCheckState> {
   void getData() async {
     emit(state.copyWith(status: Status.inProgress));
 
-    Result<DriverChecklistModel> result = await ApiService().driverChecklist(orgId);
+    Result<DriverCheckListModel> result = await ApiService.I.driverChecklist(orgId);
 
     if (result.isSuccess) {
       emit(state.copyWith(driverChecklistModel: result.data, status: Status.loaded));

@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tug/core/extensions/string_extension.dart';
-import 'package:tug/core/models/auth_models.dart';
+import 'package:tug/core/models/auth_model.dart';
 import 'package:tug/core/utils/app_snakebar.dart';
 import 'package:tug/core/utils/result.dart';
 import 'package:tug/servises/api_service.dart';
@@ -46,7 +46,7 @@ class AuthCubit extends Cubit<AuthState> {
 
     emit(state.copyWith(loginStatus: Status.inProgress));
 
-    Result<AuthModel> result = await ApiService().login(state.email!, state.password!);
+    Result<AuthModel> result = await ApiService.I.login(state.email!, state.password!);
 
     if (result.isSuccess) {
       print("Login successful!");

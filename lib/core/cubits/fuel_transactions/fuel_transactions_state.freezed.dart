@@ -38,6 +38,8 @@ abstract class $FuelTransactionsStateCopyWith<$Res> {
       {Status? status,
       FuelTransactionListModel? fuelTransactionListModel,
       String? failureMessage});
+
+  $FuelTransactionListModelCopyWith<$Res>? get fuelTransactionListModel;
 }
 
 /// @nodoc
@@ -75,6 +77,21 @@ class _$FuelTransactionsStateCopyWithImpl<$Res,
               as String?,
     ) as $Val);
   }
+
+  /// Create a copy of FuelTransactionsState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $FuelTransactionListModelCopyWith<$Res>? get fuelTransactionListModel {
+    if (_value.fuelTransactionListModel == null) {
+      return null;
+    }
+
+    return $FuelTransactionListModelCopyWith<$Res>(
+        _value.fuelTransactionListModel!, (value) {
+      return _then(_value.copyWith(fuelTransactionListModel: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -90,6 +107,9 @@ abstract class _$$FuelTransactionsStateImplCopyWith<$Res>
       {Status? status,
       FuelTransactionListModel? fuelTransactionListModel,
       String? failureMessage});
+
+  @override
+  $FuelTransactionListModelCopyWith<$Res>? get fuelTransactionListModel;
 }
 
 /// @nodoc

@@ -1,22 +1,65 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:get_it/get_it.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:tug/core/cubits/user_me/user_me_cubit.dart';
 import 'package:tug/core/cubits/user_me/user_me_state.dart';
+import 'package:tug/core/extensions/string_extension.dart';
 import 'package:tug/core/models/user_me_model.dart';
 import 'package:tug/core/utils/result.dart';
 import 'package:tug/servises/api_service.dart';
 
-
 class MockApiService extends Mock implements ApiService {}
 
-void setupMockApiService(MockApiService mockApiService) {
-  when(() => mockApiService.getUserMe()).thenAnswer(
-    (_) async => Result.success(UserMeModel.fromJson(testResponse)),
+void main() {
+  MockApiService mockApiService = MockApiService();
+  GetIt.I.registerSingleton<ApiService>(mockApiService);
+  late UserMeCubit userMeCubit;
+
+  setUp(() async {
+    userMeCubit = UserMeCubit();
+  });
+
+  test('UserMeCubit initial state should be Status.inProgress', () {
+    expect(userMeCubit.state.status, Status.inProgress);
+  });
+
+  blocTest<UserMeCubit, UserMeState>(
+    'emits [Status.inProgress, Status.loaded] when getData is successful',
+    build: () {
+      when(() => mockApiService.getUserMe()).thenAnswer(
+        (_) async => Result.success(UserMeModel.fromJson(successResponseTest.toJsonMap())),
+      );
+      return userMeCubit;
+    },
+    act: (cubit) => cubit.getData(),
+    expect: () => [
+      const UserMeState(status: Status.inProgress),
+      UserMeState(
+        status: Status.loaded,
+        userMeModel: UserMeModel.fromJson(successResponseTest.toJsonMap()),
+        selectedAccount: UserMeModel.fromJson(successResponseTest.toJsonMap()).accounts?.firstOrNull,
+      ),
+    ],
+  );
+
+  blocTest<UserMeCubit, UserMeState>(
+    'emits [Status.inProgress, Status.failure] when getData is failure',
+    build: () {
+      when(() => mockApiService.getUserMe()).thenAnswer(
+        (_) async => Result.failure('a failure message'),
+      );
+      return userMeCubit;
+    },
+    act: (cubit) => cubit.getData(),
+    expect: () => [
+      const UserMeState(status: Status.inProgress),
+      const UserMeState(status: Status.failure, failureMessage: 'a failure message'),
+    ],
   );
 }
 
-const testResponse = '''{
+const successResponseTest = '''{
   "id": 17,
   "tenantId": 2,
   "externalUserId": "ykOR59bToWPxvuW3i7q4G5dwurE3",
@@ -79,39 +122,3 @@ const testResponse = '''{
   "identificationNo": null
 }
 ''';
-
-void main() {
-  late MockApiService mockApiService;
-  late UserMeCubit userMeCubit;
-
-  // Setting up before each test
-  setUp(() {
-    mockApiService = MockApiService();
-    userMeCubit = UserMeCubit(MockApiService());
-  });
-
-  // Cleaning up after each test
-  tearDown(() {
-    userMeCubit.close();
-  });
-
-  // Test the initial state
-  test('UserMeCubit initial state should be Status.inProgress', () {
-    expect(userMeCubit.state.status, Status.inProgress);
-  });
-
-  // Test the getData function
-  blocTest<UserMeCubit, UserMeState>(
-    'emits [Status.inProgress, Status.loaded] when getData is successful',
-    build: () {
-      when(() => mockApiService.getUserMe()).thenAnswer(
-        (_) async => Result.success(UserMeModel(id: 1, firstname: 'Hossein', lastname: 'new', email: 'example@example.com')),
-      );
-      return userMeCubit;
-    },
-    act: (cubit) => cubit.getData(),
-    expect: () => [
-      UserMeState(status: Status.inProgress),
-    ],
-  );
-}

@@ -17,7 +17,7 @@ class FuelTransactionsCubit extends Cubit<FuelTransactionsState> {
   void getData() async {
     emit(state.copyWith(status: Status.inProgress));
 
-    Result<FuelTransactionListModel> result = await ApiService().fuelTransactionList(orgId, 0);
+    Result<FuelTransactionListModel> result = await ApiService.I.fuelTransactionList(orgId, 0);
 
     if (result.isSuccess) {
       emit(state.copyWith(fuelTransactionListModel: result.data, status: Status.loaded));

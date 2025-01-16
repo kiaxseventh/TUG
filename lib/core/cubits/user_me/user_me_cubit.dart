@@ -5,21 +5,14 @@ import 'package:tug/core/utils/result.dart';
 import 'package:tug/servises/api_service.dart';
 
 class UserMeCubit extends Cubit<UserMeState> {
-  UserMeCubit(this.apiService)
-      : super(const UserMeState(
-          status: Status.inProgress,
-        ));
-
-  final ApiService apiService;
+  UserMeCubit() : super(const UserMeState(status: Status.inProgress));
 
   void getData() async {
     emit(state.copyWith(status: Status.inProgress));
 
-    Result<UserMeModel> result = await apiService.getUserMe();
+    Result<UserMeModel> result = await ApiService.I.getUserMe();
 
     if (result.isSuccess) {
-      print(result.data!.email.toString());
-
       emit(state.copyWith(userMeModel: result.data, selectedAccount: result.data!.accounts?.firstOrNull, status: Status.loaded));
     } else if (result.isError) {
       emit(state.copyWith(failureMessage: result.error, status: Status.failure));

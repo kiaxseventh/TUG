@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:go_router/go_router.dart';
 import 'package:toastification/toastification.dart';
+import 'package:tug/core/di/de.dart';
 import 'package:tug/core/extensions/path_route_extensions.dart';
 import 'package:tug/core/network/http_client.dart';
 import 'package:tug/core/utils/app_context.dart';
@@ -19,6 +20,9 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   GoRouter.optionURLReflectsImperativeAPIs = true;
+
+  // init Dependency Injection
+  await De.init();
 
   // init Preferences
   await AppPreferences.init();

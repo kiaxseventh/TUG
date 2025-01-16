@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$DriverCheckState {
   Status? get status => throw _privateConstructorUsedError;
-  DriverChecklistModel? get driverChecklistModel =>
+  DriverCheckListModel? get driverChecklistModel =>
       throw _privateConstructorUsedError;
   String? get failureMessage => throw _privateConstructorUsedError;
 
@@ -36,8 +36,10 @@ abstract class $DriverCheckStateCopyWith<$Res> {
   @useResult
   $Res call(
       {Status? status,
-      DriverChecklistModel? driverChecklistModel,
+      DriverCheckListModel? driverChecklistModel,
       String? failureMessage});
+
+  $DriverCheckListModelCopyWith<$Res>? get driverChecklistModel;
 }
 
 /// @nodoc
@@ -67,12 +69,27 @@ class _$DriverCheckStateCopyWithImpl<$Res, $Val extends DriverCheckState>
       driverChecklistModel: freezed == driverChecklistModel
           ? _value.driverChecklistModel
           : driverChecklistModel // ignore: cast_nullable_to_non_nullable
-              as DriverChecklistModel?,
+              as DriverCheckListModel?,
       failureMessage: freezed == failureMessage
           ? _value.failureMessage
           : failureMessage // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
+  }
+
+  /// Create a copy of DriverCheckState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $DriverCheckListModelCopyWith<$Res>? get driverChecklistModel {
+    if (_value.driverChecklistModel == null) {
+      return null;
+    }
+
+    return $DriverCheckListModelCopyWith<$Res>(_value.driverChecklistModel!,
+        (value) {
+      return _then(_value.copyWith(driverChecklistModel: value) as $Val);
+    });
   }
 }
 
@@ -86,8 +103,11 @@ abstract class _$$DriverCheckStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {Status? status,
-      DriverChecklistModel? driverChecklistModel,
+      DriverCheckListModel? driverChecklistModel,
       String? failureMessage});
+
+  @override
+  $DriverCheckListModelCopyWith<$Res>? get driverChecklistModel;
 }
 
 /// @nodoc
@@ -115,7 +135,7 @@ class __$$DriverCheckStateImplCopyWithImpl<$Res>
       driverChecklistModel: freezed == driverChecklistModel
           ? _value.driverChecklistModel
           : driverChecklistModel // ignore: cast_nullable_to_non_nullable
-              as DriverChecklistModel?,
+              as DriverCheckListModel?,
       failureMessage: freezed == failureMessage
           ? _value.failureMessage
           : failureMessage // ignore: cast_nullable_to_non_nullable
@@ -133,7 +153,7 @@ class _$DriverCheckStateImpl implements _DriverCheckState {
   @override
   final Status? status;
   @override
-  final DriverChecklistModel? driverChecklistModel;
+  final DriverCheckListModel? driverChecklistModel;
   @override
   final String? failureMessage;
 
@@ -171,13 +191,13 @@ class _$DriverCheckStateImpl implements _DriverCheckState {
 abstract class _DriverCheckState implements DriverCheckState {
   const factory _DriverCheckState(
       {final Status? status,
-      final DriverChecklistModel? driverChecklistModel,
+      final DriverCheckListModel? driverChecklistModel,
       final String? failureMessage}) = _$DriverCheckStateImpl;
 
   @override
   Status? get status;
   @override
-  DriverChecklistModel? get driverChecklistModel;
+  DriverCheckListModel? get driverChecklistModel;
   @override
   String? get failureMessage;
 

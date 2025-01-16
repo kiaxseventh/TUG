@@ -35,6 +35,8 @@ abstract class $DashboardStateCopyWith<$Res> {
   @useResult
   $Res call(
       {Status? status, DashboardModel? dashboardModel, String? failureMessage});
+
+  $DashboardModelCopyWith<$Res>? get dashboardModel;
 }
 
 /// @nodoc
@@ -71,6 +73,20 @@ class _$DashboardStateCopyWithImpl<$Res, $Val extends DashboardState>
               as String?,
     ) as $Val);
   }
+
+  /// Create a copy of DashboardState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $DashboardModelCopyWith<$Res>? get dashboardModel {
+    if (_value.dashboardModel == null) {
+      return null;
+    }
+
+    return $DashboardModelCopyWith<$Res>(_value.dashboardModel!, (value) {
+      return _then(_value.copyWith(dashboardModel: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -83,6 +99,9 @@ abstract class _$$DashboardStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {Status? status, DashboardModel? dashboardModel, String? failureMessage});
+
+  @override
+  $DashboardModelCopyWith<$Res>? get dashboardModel;
 }
 
 /// @nodoc

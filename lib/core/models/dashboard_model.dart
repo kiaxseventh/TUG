@@ -1,157 +1,64 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'dart:convert';
 
-class DashboardModel {
-  final Balance? balance;
-  final Usage? usage;
-  final Cards? cards;
+part 'dashboard_model.freezed.dart';
+part 'dashboard_model.g.dart';
 
-  DashboardModel({
-    this.balance,
-    this.usage,
-    this.cards,
-  });
+@freezed
+class DashboardModel with _$DashboardModel {
+  const factory DashboardModel({
+    Balance? balance,
+    Usage? usage,
+    Cards? cards,
+  }) = _DashboardModel;
 
-  factory DashboardModel.fromJson(String str) => DashboardModel.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory DashboardModel.fromMap(Map<String, dynamic> json) => DashboardModel(
-        balance: json["balance"] == null ? null : Balance.fromMap(json["balance"]),
-        usage: json["usage"] == null ? null : Usage.fromMap(json["usage"]),
-        cards: json["cards"] == null ? null : Cards.fromMap(json["cards"]),
-      );
-
-  Map<String, dynamic> toMap() => {
-        "balance": balance?.toMap(),
-        "usage": usage?.toMap(),
-        "cards": cards?.toMap(),
-      };
+  factory DashboardModel.fromJson(Map<String, dynamic> json) => _$DashboardModelFromJson(json);
 }
 
-class Balance {
-  final int? id;
-  final int? balanceThreshold;
-  final String? name;
-  final DateTime? updatedAt;
-  final double? balance;
+@freezed
+class Balance with _$Balance {
+  const factory Balance({
+    int? id,
+    int? balanceThreshold,
+    String? name,
+    DateTime? updatedAt,
+    double? balance,
+  }) = _Balance;
 
-  Balance({
-    this.id,
-    this.balanceThreshold,
-    this.name,
-    this.updatedAt,
-    this.balance,
-  });
-
-  factory Balance.fromJson(String str) => Balance.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory Balance.fromMap(Map<String, dynamic> json) => Balance(
-        id: json["id"],
-        balanceThreshold: json["balanceThreshold"],
-        name: json["name"],
-        updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
-        balance: json["balance"]?.toDouble(),
-      );
-
-  Map<String, dynamic> toMap() => {
-        "id": id,
-        "balanceThreshold": balanceThreshold,
-        "name": name,
-        "updatedAt": updatedAt?.toIso8601String(),
-        "balance": balance,
-      };
+  factory Balance.fromJson(Map<String, dynamic> json) => _$BalanceFromJson(json);
 }
 
-class Cards {
-  final int? total;
-  final int? active;
-  final int? frozen;
-  final int? deactivated;
-  final int? suspended;
-  final int? expired;
+@freezed
+class Cards with _$Cards {
+  const factory Cards({
+    int? total,
+    int? active,
+    int? frozen,
+    int? deactivated,
+    int? suspended,
+    int? expired,
+  }) = _Cards;
 
-  Cards({
-    this.total,
-    this.active,
-    this.frozen,
-    this.deactivated,
-    this.suspended,
-    this.expired,
-  });
-
-  factory Cards.fromJson(String str) => Cards.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory Cards.fromMap(Map<String, dynamic> json) => Cards(
-        total: json["total"],
-        active: json["active"],
-        frozen: json["frozen"],
-        deactivated: json["deactivated"],
-        suspended: json["suspended"],
-        expired: json["expired"],
-      );
-
-  Map<String, dynamic> toMap() => {
-        "total": total,
-        "active": active,
-        "frozen": frozen,
-        "deactivated": deactivated,
-        "suspended": suspended,
-        "expired": expired,
-      };
+  factory Cards.fromJson(Map<String, dynamic> json) => _$CardsFromJson(json);
 }
 
-class Usage {
-  final Current? current;
-  final Current? prevMonth;
+@freezed
+class Usage with _$Usage {
+  const factory Usage({
+    Current? current,
+    Current? prevMonth,
+  }) = _Usage;
 
-  Usage({
-    this.current,
-    this.prevMonth,
-  });
-
-  factory Usage.fromJson(String str) => Usage.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory Usage.fromMap(Map<String, dynamic> json) => Usage(
-        current: json["current"] == null ? null : Current.fromMap(json["current"]),
-        prevMonth: json["prevMonth"] == null ? null : Current.fromMap(json["prevMonth"]),
-      );
-
-  Map<String, dynamic> toMap() => {
-        "current": current?.toMap(),
-        "prevMonth": prevMonth?.toMap(),
-      };
+  factory Usage.fromJson(Map<String, dynamic> json) => _$UsageFromJson(json);
 }
 
-class Current {
-  final double? volume;
-  final double? amount;
-  final double? trxnCount;
+@freezed
+class Current with _$Current {
+  const factory Current({
+    double? volume,
+    double? amount,
+    dynamic trxnCount,
+  }) = _Current;
 
-  Current({
-    this.volume,
-    this.amount,
-    this.trxnCount,
-  });
-
-  factory Current.fromJson(String str) => Current.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory Current.fromMap(Map<String, dynamic> json) => Current(
-        volume: json["volume"],
-        amount: json["amount"],
-        trxnCount: json["trxnCount"],
-      );
-
-  Map<String, dynamic> toMap() => {
-        "volume": volume,
-        "amount": amount,
-        "trxnCount": trxnCount,
-      };
+  factory Current.fromJson(Map<String, dynamic> json) => _$CurrentFromJson(json);
 }

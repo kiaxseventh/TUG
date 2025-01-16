@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:tug/core/extensions/string_extension.dart';
-import 'package:tug/core/models/auth_models.dart';
+import 'package:tug/core/models/auth_model.dart';
 
 import 'app_preferences.dart';
 
@@ -14,7 +14,7 @@ class AuthManager {
   AuthManager._();
 
   static Future<void> init() async {
-    _authObject = AppPreferences.getObject<AuthModel>(authObjectKey, (json) => AuthModel.fromMap(json));
+    _authObject = AppPreferences.getObject<AuthModel>(authObjectKey, (json) => AuthModel.fromJson(json));
 
     notifyAuthState();
   }

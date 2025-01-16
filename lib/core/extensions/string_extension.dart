@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 extension StringExtensions on String {
   bool isNullOrEmpty() => isEmpty;
 
@@ -49,5 +51,15 @@ extension NullableStringExtensions on String? {
 
     final uri = Uri.tryParse(this!);
     return uri != null && uri.hasScheme && uri.hasAuthority;
+  }
+
+  Map<String, dynamic> toJsonMap() {
+    if (isNullOrEmpty()) return {};
+
+    try {
+      return jsonDecode(this!) as Map<String, dynamic>;
+    } catch (e) {
+      throw FormatException("Invalid JSON string: $e");
+    }
   }
 }

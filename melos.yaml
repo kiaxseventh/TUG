@@ -1,21 +1,16 @@
 name: tug
 
+
 packages:
   - packages/*
 
 scripts:
-  init:
-    run: |
-      bash ./scripts/protos.sh  2>&1
-      flutter clean
-      flutter pub get
-      flutter pub run build_runner build --delete-conflicting-outputs
 
   get:
     run: |
       flutter clean
       flutter pub get
 
-  state:
+  freeze:
     run: |
       flutter pub run build_runner build --delete-conflicting-outputs
